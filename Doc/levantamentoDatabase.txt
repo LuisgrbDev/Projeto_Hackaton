@@ -1,0 +1,19 @@
+
+Usuario - Id, nomeUsuario; 
+
+CURSO - id, NumeroDaOferta,  NomeDoCurso;
+
+Docente - id, NomeDocente;
+
+Turma - id, CodigoTurma;
+
+SUBAREAS - id, nome, curso;
+
+SALA-  Id, Numero, -nome-, andar, CapacidadeSala, TipoDeSala;
+
+AREA -id,  Curso , NumeroOferta, Cor;
+
+TABELAS N PARA N: 
+
+CURSOS- ID, Turma, SiglaDoCurso, Docente;
+RESERVA  - ID, DataInicio, DataFim, HorarioInicio, HorarioFim , numeroSala, IdTurma ,IdCurso, IdDocente;
