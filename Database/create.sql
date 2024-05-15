@@ -1,49 +1,61 @@
 
-CREATE TABLE IF NOT EXISTS subarea (
- id INT auto_increment  PRIMARY KEY,
- nome VARCHAR(50),
- cor varchar(10)
+CREATE DATABASE reserva_sala;
+
+USE sistema_reserva_sala;
+
+CREATE TABLE SALA (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nomeSala VARCHAR(45) NOT NULL,
+  andar VARCHAR(25) NOT NULL,
+  capacidadeINT(10) NOT NULL,
+  tipo TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS docente(
-	id INT auto_increment PRIMARY KEY,
-    docente VARCHAR(50) NOT NULL
+
+CREATE TABLE AREA (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nomeArea VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS sala(
-	id INT auto_increment  PRIMARY KEY,
-    nome_sala VARCHAR(50) NOT NULL,
-    andar VARCHAR(30) NOT NULL,
-    capacidade VARCHAR(10) NOT NULL,
-	tipo TEXT NOT NULL
+CREATE TABLE SUBAREA (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nomeSubarea VARCHAR(30) NOT NULL,
+  corArea VARCHAR(20) NOT NULL,
+  idArea INT NOT NULL,
+  FOREIGN KEY (idArea) REFERENCES AREA(id)
 );
 
-CREATE TABLE IF NOT EXISTS curso (
-	id int auto_increment PRIMARY KEY,
-    subareaid int,
-    nome VARCHAR(100),
-    sigla VARCHAR(10),
-    area VARCHAR(60),
-	FOREIGN KEY (subareaid) REFERENCES subarea(id)
+CREATE TABLE CURSO (
+  ID_CURSO INT PRIMARY KEY AUTO_INCREMENT,
+  nome_curso VARCHAR(45) NOT NULL,
+  siglaCurso VARCHAR(10) NOT NULL,
 );
 
-CREATE TABLE IF NOT EXISTS turma(
-	id int auto_increment primary key,
-    cursoId int,
-    docenteId int,
-    codigoTurma VARCHAR(30),
-    FOREIGN KEY (cursoID) REFERENCES curso(id),
-	FOREIGN KEY (docenteId) REFERENCES docente(id)
-);
-CREATE TABLE IF NOT EXISTS reserva (
-	id int auto_increment primary key,
-    turmaId int, 
-    salaId int,
-    dataInicio datetime not null,
-    dataFim datetime default current_timestamp on UPDATE current_timestamp,
-    horarioInico time,
-    horarioFim time,
-	FOREIGN KEY (turmaId) REFERENCES turma(id),
-	FOREIGN KEY (salaId) REFERENCES sala(id)
+-- Criar tabela DOCENTE
+CREATE TABLE DOCENTE (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nomeDocente VARCHAR(30) NOT NULL
 );
 
+-- Criar tabela TURMA
+CREATE TABLE TURMA (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  idCurso INT NOT NULL,
+  idDocente INT NOT NULL,
+  codigoTurma VARCHAR(30) NOT NULL,
+  FOREIGN KEY (idCurso) REFERENCES CURSO(id),
+  FOREIGN KEY (idDocente) REFERENCES DOCENTE(id)
+);
+
+-- Criar tabela RESERVA
+CREATE TABLE RESERVA (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  idSala INT NOT NULL,
+  idTurma INT NOT NULL,
+  dataInicio DATETIME NOT NULL,
+  dataFim DATETIME NOT NULL default current_timestamp on UPDATE current_timestamp,
+  horaInicio TIME NOT NULL,
+  horaFim TIME NOT NULL,
+  FOREIGN KEY (ID_SALA) REFERENCES SALA(ID_SALA),
+  FOREIGN KEY (ID_TURMA) REFERENCES TURMA(ID_TURMA)
+);
