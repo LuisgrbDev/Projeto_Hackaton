@@ -4,15 +4,31 @@ require_once "BaseDAO.php";
 require_once "entity/sala.php"
 
 
-class SalaDAO {
-    private $db;
+class SalaDAO implements BaseDAO{
 
-    public function __construct() {
+private $db;
+
+    public function __construct()
+    {
         $this->db = Database::getInstance();
     }
 
-    public function getAll() {
-        $stmt = $this->db->query("SELECT * FROM sala");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    try {
+            $sql = "SELECT * FROM sala";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+
+            $salas= $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return array_map(function ($reserva) {
+                return new Sala(
+                    $reserva['id'],
+                    $reserva['nomeSala'],
+                    $reserva['andar'],
+                    $reserva['tipo']
+                );
+            }, $salas);
+        } catch (PDOException $e) {
+            return false;
+        }
     }
-}
