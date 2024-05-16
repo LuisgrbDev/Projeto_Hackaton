@@ -4,7 +4,7 @@ class Database
 
     private $instance = null;
 
-    public function  GetAllInstance()
+    public static function  getInstance()
     {
         if (self::$instance === null) {
             $host = 'localhost';
