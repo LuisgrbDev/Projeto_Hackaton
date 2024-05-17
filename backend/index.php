@@ -2,6 +2,7 @@
 require_once 'DAO/turmaDAO.php';
 require_once 'DAO/salaDAO.php';
 require_once "DAO/ReservaDAO.php";
+require_once 'entity/reserva.php';
 
 $turmaDAO = new TurmaDAO();
 $salaDAO = new SalaDAO();
@@ -19,7 +20,8 @@ if ($type === 'reservar') {
     $horaInicio = $_POST['horaInicio'];
     $horaFim = $_POST['horaFim'];
 
-    $inserido = $reservaDAO->create($salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
+    $reserva = NEW reserva(null,$salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
+    $inserido = $reservaDAO->create($reserva);
     if ($inserido) {
         echo "Reserva inserida com sucesso!" . $inserido;
     } else {
