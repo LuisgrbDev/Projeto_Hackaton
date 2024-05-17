@@ -1,32 +1,3 @@
-<?php 
-require_once 'DAO/turmaDAO.php';
-require_once 'DAO/salaDAO.php';
-require_once "DAO/ReservaDAO.php";
-
-$turmaDAO = new TurmaDAO();
-$salaDAO = new SalaDAO();
-$salas= $salaDAO->getById();
-$turmas = $turmaDAO->getById();
-$reservaDAO = new ReservaDAO();
-
-$type = filter_input(INPUT_POST, "type");
-
-if ($type === 'reservar') {
-    $salaId = $_POST['idSala'];
-    $turmaId = $_POST['idTurma'];
-    $dataInicio = $_POST['dataInicio'];
-    $dataFim = $_POST['dataFim'];
-    $horaInicio = $_POST['horaInicio'];
-    $horaFim = $_POST['horaFim'];
-
-    $inserido = $reservaDAO->create($salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
-    if ($inserido) {
-        echo "Reserva inserida com sucesso!" . $inserido;
-    } else {
-        echo "Erro ao inserir a reserva." . $inserido;
-    }
-}
-?>''
 
 <!DOCTYPE html>
 <html lang="pt-br">
