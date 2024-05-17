@@ -9,8 +9,8 @@ $salaDAO = new SalaDAO();
 $salas= $salaDAO->getAll();
 $turmas = $turmaDAO->getAll();
 $reservaDAO = new ReservaDAO();
-
 $type = filter_input(INPUT_POST, "type");
+
 
 if ($type === 'reservar') {
     $salaId = $_POST['idSala'];
@@ -20,12 +20,13 @@ if ($type === 'reservar') {
     $horaInicio = $_POST['horaInicio'];
     $horaFim = $_POST['horaFim'];
 
-    $reserva = NEW reserva(null,$salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
-    $inserido = $reservaDAO->create($reserva);
-    if ($inserido) {
-        echo "Reserva inserida com sucesso!" . $inserido;
+    $reserva = NEW reserva($salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
+   
+    if ($reserva == $reserva) {
+        $reservaDAO->create($reserva);
+        echo "Reserva inserida com sucesso!";
     } else {
-        echo "Erro ao inserir a reserva." . $inserido;
+        echo "Erro ao inserir a reserva.";
     }
 }
 ?>
@@ -47,7 +48,7 @@ if ($type === 'reservar') {
                 <label for="turma_id" class="form-label">Turmas</label>
                 <select class="form-select" id="idTurma" name="idTurma" >
                     <?php foreach ($turmas as $turma): ?>
-                        <option value="<?php echo intval($turma->getId()); ?>"><?php echo $turma->codigoTurma();?></option>
+                        <option value="<?php echo $turma->getId(); ?>"><?php echo $turma->codigoTurma();?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -56,7 +57,7 @@ if ($type === 'reservar') {
                 <select class="form-select" id="idSala" name="idSala" >
                 <?php foreach ($salas as $sala): ?>
             
-                        <option value="<?php echo intval($sala->getId()); ?>"><?php echo $sala->getAndar();?><?php echo $sala->getNomeSala();?></option>
+                        <option value="<?php echo $sala->getId(); ?>"><?php echo $sala->getAndar();?><?php echo $sala->getNomeSala();?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

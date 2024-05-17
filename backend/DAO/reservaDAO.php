@@ -64,31 +64,27 @@ class ReservaDAO implements BaseDAO
     }
 
     public function create($reserva)
-    {
-        return $reserva;
+    {  
         try {
-            $sql = "INSERT INTO RESERVA (idSala, idTurma, dataInicio, dataFim, horaInicio,horaFim) VALUES
-                (:idSala, :idTurma, :dataInicio, :dataFim, :horaInicio,:horaFim)";
-
+            $sql = "INSERT INTO reserva (idSala, idTurma, dataInicio, dataFim, horaInicio, horaFim) VALUES
+                (:idSala, :idTurma, :dataInicio, :dataFim, :horaInicio, :horaFim)";
+    
             $stmt = $this->db->prepare($sql);
-
-            // Bind parameters by reference
-            // $id = $reserva->getId();
-            $idSala = $reserva->idSala();
-            $idTurma = $reserva->idTurma();
-            $dataInicio = $reserva->dataInicio();
-            $dataFim = $reserva->dataFim();
-            $horaInicio = $reserva->horaInicio();
-            $horaFim= $reserva->horaFim();
-
-        
+    
+            $idSala = $reserva->IdSala();
+            $idTurma = $reserva->IdTurma();
+            $dataInicio = $reserva->getDataInicio();
+            $dataFim = $reserva->getDataFim();
+            $horaInicio = $reserva->getHoraInicio();
+            $horaFim = $reserva->getHoraFim();
+    
             $stmt->bindParam(':idSala', $idSala);
             $stmt->bindParam(':idTurma', $idTurma);
             $stmt->bindParam(':dataInicio', $dataInicio);
             $stmt->bindParam(':dataFim', $dataFim);
             $stmt->bindParam(':horaInicio', $horaInicio);
             $stmt->bindParam(':horaFim', $horaFim);
-
+    
             $stmt->execute();
             
             return true;
@@ -96,31 +92,29 @@ class ReservaDAO implements BaseDAO
             return false;
         }
     }
-
+    
     public function update($reserva)
     {
         try {
             $existingReserva = $this->getById($reserva->getId());
             if (!$existingReserva) {
-                return false; // Retorna falso se o usuário não existir
+                return false;
             }
-
+    
             $sql = "UPDATE reserva SET idSala = :idSala, idTurma = :idTurma,
                 dataInicio = :dataInicio, dataFim = :dataFim, horaInicio = :horaInicio, horaFim = :horaFim
                 WHERE id = :id";
-
-
+    
             $stmt = $this->db->prepare($sql);
-
-            // Bind parameters by reference
-            
-            $idSala = $reserva->idSala();
-            $idTurma = $reserva->idTurma();
-            $dataInicio = $reserva->dataInicio();
-            $dataFim = $reserva->dataFim();
-            $horaInicio = $reserva->horaInicio();
-            $horaInicio = $reserva->horaFim();
-
+    
+            $id = $reserva->getId();
+            $idSala = $reserva->getIdSala();
+            $idTurma = $reserva->getIdTurma();
+            $dataInicio = $reserva->getDataInicio();
+            $dataFim = $reserva->getDataFim();
+            $horaInicio = $reserva->getHoraInicio();
+            $horaFim = $reserva->getHoraFim();
+    
             $stmt->bindParam(':id', $id);
             $stmt->bindParam(':idSala', $idSala);
             $stmt->bindParam(':idTurma', $idTurma);
@@ -128,13 +122,14 @@ class ReservaDAO implements BaseDAO
             $stmt->bindParam(':dataFim', $dataFim);
             $stmt->bindParam(':horaInicio', $horaInicio);
             $stmt->bindParam(':horaFim', $horaFim);
-
+    
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
             return false;
         }
     }
+    
 
     public function delete($id)
     {

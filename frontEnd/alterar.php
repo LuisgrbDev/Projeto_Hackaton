@@ -1,4 +1,31 @@
+<?php 
+require_once 'DAO/salaDAO.php';
+require_once "DAO/ReservaDAO.php";
 
+$turmaDAO = new TurmaDAO();
+$salaDAO = new SalaDAO();
+$salas= $salaDAO->getAll();
+$turmas = $turmaDAO->getAll();
+$reservaDAO = new ReservaDAO();
+
+// $type = filter_input(INPUT_POST, "type");
+
+// if ($type === 'reservar') {
+//     $salaId = $_POST['idSala'];
+//     $turmaId = $_POST['idTurma'];
+//     $dataInicio = $_POST['dataInicio'];
+//     $dataFim = $_POST['dataFim'];
+//     $horaInicio = $_POST['horaInicio'];
+//     $horaFim = $_POST['horaFim'];
+
+//     $inserido = $reservaDAO->create($salaId,$turmaId,$dataInicio, $dataFim,$horaInicio,$horaFim);
+//     if ($inserido) {
+//         echo "Reserva inserida com sucesso!" . $inserido;
+//     } else {
+//         echo "Erro ao inserir a reserva." . $inserido;
+//     }
+// }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -92,7 +119,12 @@
                 <div class="input_box">
                     <label for="sala">Sala:</label>
                     <br>
-                    <input type="text" id="buscar_sala" name="buscar_sala" onclick=" loginPopup()" placeholder="Digite sua sala">
+                    <select class="form-select" id="idSala" name="idSala" >
+                <?php foreach ($salas as $sala): ?>
+            
+                        <option value="<?php echo intval($sala->getId()); ?>"><?php echo $sala->getAndar();?><?php echo $sala->getNomeSala();?></option>
+                    <?php endforeach; ?>
+                </select>
                 </div>
 
                 <div class="input_box">

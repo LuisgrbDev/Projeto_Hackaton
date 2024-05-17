@@ -10,9 +10,9 @@
         private $horaFim;
     
     
-        public function __construct($id,$idSala, $idTurma ,$dataInicio,$dataFim,$horaInicio,$horaFim)
+        public function __construct($idSala, $idTurma ,$dataInicio,$dataFim,$horaInicio,$horaFim)
         {
-                $this->id = $id;
+               //  $this->id = $id;
                 $this->idSala = $idSala;
                 $this->idTurma = $idTurma;
                 $this->dataInicio = $dataInicio;
@@ -45,16 +45,16 @@
              return $this->horaFim;
         }
 
-        public function __toString()
-        {
-          return "$this->id
-                    $this->idSala
-                    $this->idTurma
-                    $this->dataInicio
-                    $this->dataFim
-                    $this->horaInicio
-                    $this->horaFim";
-        }
+     //    public function __toString()
+     //    {
+     //      return "$this->id
+     //                $this->idSala
+     //                $this->idTurma
+     //                $this->dataInicio
+     //                $this->dataFim
+     //                $this->horaInicio
+     //                $this->horaFim";
+     //    }
 
     }
         
