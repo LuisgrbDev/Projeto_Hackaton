@@ -1,12 +1,12 @@
 <?php 
 require_once "config/Database.php";
 require_once "BaseDAO.php";
-require_once "entity/curso.php";
+require_once "entity/area.php";
 
 
-class CursoDAO implements BaseDAO{
+class AreaDAO implements BaseDAO{
 
-private $db;
+    private $db;
 
     public function __construct()
     {
@@ -18,27 +18,27 @@ private $db;
         
     }
 
+
     public function getAll()
     {
-        try {
-            $sql = "SELECT * FROM curso";
+        
+    try {
+            $sql = "SELECT * FROM area";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
 
-            $cursos= $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $areas= $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return array_map(function ($curso) {
-                return new curso(
-                    $curso['id'],
-                    $curso['nome_curso'],
-                    $curso['siglaCurso']
+            return array_map(function ($area) {
+                return new area(
+                    $area['id'],
+                    $area['nomeArea']
                 );
-            }, $cursos);
+            }, $areas);
         } catch (PDOException $e) {
             return false;
         }
     }
-
     public function create($reserva)
     {
        
@@ -53,4 +53,5 @@ private $db;
     {
        
     }
+
     }

@@ -65,22 +65,23 @@ class ReservaDAO implements BaseDAO
 
     public function create($reserva)
     {
+        return $reserva;
         try {
-            $sql = "INSERT INTO reserva (Id, idSala, idTurma, dataInicio, dataFim, horaInicio,horaFim) VALUES
-                (null, :idSala, :idTurma, :dataInicio, :dataFim, :horaInicio,:horaFim)";
+            $sql = "INSERT INTO RESERVA (idSala, idTurma, dataInicio, dataFim, horaInicio,horaFim) VALUES
+                (:idSala, :idTurma, :dataInicio, :dataFim, :horaInicio,:horaFim)";
 
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
-            $id = $reserva->getId();
+            // $id = $reserva->getId();
             $idSala = $reserva->idSala();
             $idTurma = $reserva->idTurma();
             $dataInicio = $reserva->dataInicio();
             $dataFim = $reserva->dataFim();
             $horaInicio = $reserva->horaInicio();
-            $horaInicio = $reserva->horaFim();
+            $horaFim= $reserva->horaFim();
 
-            $stmt->bindParam(':id', $id);
+        
             $stmt->bindParam(':idSala', $idSala);
             $stmt->bindParam(':idTurma', $idTurma);
             $stmt->bindParam(':dataInicio', $dataInicio);
@@ -89,10 +90,10 @@ class ReservaDAO implements BaseDAO
             $stmt->bindParam(':horaFim', $horaFim);
 
             $stmt->execute();
-
-            return "reserva cadastrada";
+            
+            return true;
         } catch (PDOException $e) {
-            return "erro";
+            return false;
         }
     }
 
@@ -112,7 +113,7 @@ class ReservaDAO implements BaseDAO
             $stmt = $this->db->prepare($sql);
 
             // Bind parameters by reference
-            $id = $reserva->getId();
+            
             $idSala = $reserva->idSala();
             $idTurma = $reserva->idTurma();
             $dataInicio = $reserva->dataInicio();

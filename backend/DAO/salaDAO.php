@@ -1,7 +1,7 @@
 <?php 
 require_once "config/Database.php";
 require_once "BaseDAO.php";
-require_once "entity/sala.php"
+require_once "entity/sala.php";
 
 
 class SalaDAO implements BaseDAO{
@@ -13,6 +13,12 @@ private $db;
         $this->db = Database::getInstance();
     }
 
+    public function getById($id)
+    {
+        
+    }
+    public function getAll()
+    {
     try {
             $sql = "SELECT * FROM sala";
             $stmt = $this->db->prepare($sql);
@@ -20,15 +26,32 @@ private $db;
 
             $salas= $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return array_map(function ($reserva) {
-                return new Sala(
-                    $reserva['id'],
-                    $reserva['nomeSala'],
-                    $reserva['andar'],
-                    $reserva['tipo']
+            return array_map(function ($sala) {
+                return new sala(
+                    $sala['id'],
+                    $sala['nomeSala'],
+                    $sala['andar'],
+                    $sala['capacidade'],
+                    $sala['tipo']
                 );
             }, $salas);
         } catch (PDOException $e) {
             return false;
         }
+    }
+
+        public function create($reserva)
+    {
+       
+    }
+
+    public function update($reserva)
+    {
+       
+    }
+
+    public function delete($id)
+    {
+       
+    }
     }

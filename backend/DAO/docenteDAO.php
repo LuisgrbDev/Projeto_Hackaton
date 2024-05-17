@@ -1,10 +1,11 @@
 <?php 
 require_once "config/Database.php";
 require_once "BaseDAO.php";
-require_once "entity/docente.php"
+require_once "entity/docente.php";
 
 
-class DocenteDAO implements BaseDAO{
+class DocenteDAO implements BaseDAO
+{
 
 private $db;
 
@@ -12,7 +13,13 @@ private $db;
     {
         $this->db = Database::getInstance();
     }
+    public function getById($id)
+    {
+        
+    }
 
+    public function getAll()
+    {
     try {
             $sql = "SELECT * FROM docente";
             $stmt = $this->db->prepare($sql);
@@ -20,13 +27,30 @@ private $db;
 
             $docentes= $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return array_map(function ($reserva) {
+            return array_map(function ($docente) {
                 return new docente(
-                    $reserva['id'],
-                    $reserva['nomeDocente']
+                    $docente['id'],
+                    $docente['nomeDocente']
                 );
             }, $docentes);
         } catch (PDOException $e) {
             return false;
         }
+    }
+
+    public function create($reserva)
+    {
+       
+    }
+
+    public function update($reserva)
+    {
+       
+    }
+
+    public function delete($id)
+    {
+       
+    }
+
     }

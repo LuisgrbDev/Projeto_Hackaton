@@ -11,6 +11,7 @@
                 $this->id = $id;
                 $this->nomeSala = $nomeSala;
                 $this->andar = $andar;
+                $this->capacidade = $capacidade;
                 $this->tipo = $tipo;
 
         }

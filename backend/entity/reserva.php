@@ -45,6 +45,17 @@
              return $this->horaFim;
         }
 
+        public function __toString()
+        {
+          return "$this->id
+                    $this->idSala
+                    $this->idTurma
+                    $this->dataInicio
+                    $this->dataFim
+                    $this->horaInicio
+                    $this->horaFim";
+        }
+
     }
         
         ?>

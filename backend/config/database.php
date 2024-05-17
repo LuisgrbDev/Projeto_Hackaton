@@ -2,7 +2,7 @@
 class Database
 {
 
-    private $instance = null;
+    private static $instance = null;
 
     public static function  getInstance()
     {
